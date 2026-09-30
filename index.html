@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DentalCase Pro | عيادة د. مجيب النجار</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff', 100: '#e0f2fe', 400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 900: '#0c4a6e',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['var(--main-font)', 'sans-serif'],
+                        heading: ['var(--heading-font)', 'sans-serif'],
+                        en: ['var(--en-font)', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Readex+Pro:wght@300;400;500;600;700;800&family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --main-font: 'IBM Plex Sans Arabic', 'Rubik', sans-serif;
+            --heading-font: 'Readex Pro', 'Rubik', sans-serif;
+            --en-font: 'Readex Pro', 'Rubik', sans-serif;
+            --bg-body: #030712;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --card-bg: rgba(15, 23, 42, 0.85);
+            --card-border: rgba(56, 189, 248, 0.16);
+            --input-bg: #090e1a;
+            --input-border: rgba(56, 189, 248, 0.2);
+            --accent-primary: #38bdf8;
+            --accent-soft: rgba(14, 165, 233, 0.15);
+            --pill-bg: #0b1329;
+            --pill-border: rgba(255, 255, 255, 0.08);
+            --subcard-bg: #080d1a;
+            --canvas-bg: #060a14;
+        }
+
+        html[data-theme="light"] {
+            --bg-body: #f4f4f7;
+            --text-main: #18181b;
+            --text-muted: #52525b;
+            --card-bg: #ffffff;
+            --card-border: #e4e4e7;
+            --input-bg: #fafafa;
+            --input-border: #cbd5e1;
+            --accent-primary: #1d4ed8;
+            --accent-soft: rgba(29, 78, 216, 0.08);
+            --pill-bg: #f8fafc;
+            --pill-border: #e2e8f0;
+            --subcard-bg: #f8fafc;
+            --canvas-bg: #ffffff;
+        }
+
+        * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+
+        body {
+            font-family: var(--main-font);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            margin: 0;
+            padding: 0 0.5rem 6rem 0.5rem;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        h1, h2, h3, h4, .font-heading { font-family: var(--heading-font); }
+        .font-en { font-family: var(--en-font); }
+
+        .container-app {
+            width: 100%;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .ambient-glow-1 {
+            position: fixed; top: -10%; right: -5%; width: 350px; height: 350px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, transparent 80%);
+            border-radius: 50%; filter: blur(60px); pointer-events: none; z-index: 0;
+        }
+
+        .ambient-glow-2 {
+            position: fixed; bottom: -10%; left: -5%; width: 350px; height: 350px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 80%);
+            border-radius: 50%; filter: blur(60px); pointer-events: none; z-index: 0;
+        }
+
+        .bento-card {
+            background: var(--card-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border); border-radius: 1.25rem;
+            box-shadow: 0 15px 35px -15px rgba(0, 0, 0, 0.3);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sub-box {
+            background: var(--subcard-bg);
+            border: 1px solid var(--card-border);
+        }
+
+        .glass-input {
+            background: var(--input-bg); border: 1px solid var(--input-border); color: var(--text-main);
+            transition: all 0.2s ease; font-family: var(--main-font);
+        }
+        .glass-input:focus { outline: none; border-color: var(--accent-primary); box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25); }
+
+        .segment-pill { cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); user-select: none; }
+        .segment-pill > div { background: var(--pill-bg); border: 1px solid var(--pill-border); color: var(--text-main); }
+        .segment-pill input[type="checkbox"]:checked + div {
+            background: var(--accent-soft) !important;
+            border-color: var(--accent-primary) !important;
+            color: var(--accent-primary) !important;
+            font-weight: 700;
+        }
+
+        .bottom-nav-dock {
+            background: rgba(9, 14, 26, 0.95); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(56, 189, 248, 0.2); box-shadow: 0 -10px 35px rgba(0, 0, 0, 0.6);
+        }
+        html[data-theme="light"] .bottom-nav-dock { background: rgba(255, 255, 255, 0.95); border-color: #e4e4e7; box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.08); }
+
+        .nav-btn { position: relative; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
+        .nav-btn.active { color: var(--accent-primary) !important; background: var(--accent-soft); }
+        .nav-btn.active i { transform: translateY(-1px) scale(1.15); color: var(--accent-primary); }
+
+        .custom-scroll::-webkit-scrollbar { height: 6px; width: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: var(--pill-bg); border-radius: 8px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: var(--accent-primary); border-radius: 8px; opacity: 0.5; }
+
+        .step-content { display: none; }
+        .step-content.active { display: block; animation: modernFadeIn 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
+
+        @keyframes modernFadeIn { from { opacity: 0; transform: translateY(8px) scale(0.99); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+        #signatureCanvas, #rxSignatureCanvas { touch-action: none; cursor: crosshair; background: var(--canvas-bg); }
+        #archiveModal.active { display: flex !important; }
+        #officialPrintLayout, #rxPrintLayout { display: none; }
+
+        @media print {
+            @page { size: A4 portrait; margin: 8mm; }
+            *, *::before, *::after { box-sizing: border-box !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            html, body { background: #ffffff !important; color: #111827 !important; font-family: 'IBM Plex Sans Arabic', Arial, sans-serif !important; padding: 0 !important; margin: 0 !important; font-size: 11px !important; }
+            header, main, footer, .ambient-glow-1, .ambient-glow-2, .bottom-nav-dock, #archiveModal { display: none !important; }
+            
+            /* إخفاء واحد عند طباعة الآخر حسب الحاجة */
+            body.printing-rx #officialPrintLayout { display: none !important; }
+            body.printing-rx #rxPrintLayout { display: block !important; width: 100% !important; }
+            body.printing-sheet #rxPrintLayout { display: none !important; }
+            body.printing-sheet #officialPrintLayout { display: block !important; width: 100% !important; }
+
+            .print-sheet, .rx-sheet { background: #ffffff !important; width: 100% !important; padding: 8px !important; border: 2px solid #0284c7 !important; border-radius: 10px !important; }
+            .print-box, .rx-box { border: 1px solid #cbd5e1 !important; border-radius: 6px !important; padding: 6px 8px !important; margin-bottom: 6px !important; background: #f8fafc !important; }
+            .print-title { font-weight: bold; color: #0369a1 !important; border-bottom: 1.5px solid #0284c7; padding-bottom: 2px; margin-bottom: 5px; font-size: 11.5px; }
+            .print-field { border-bottom: 1px dashed #64748b !important; display: inline-block; min-height: 15px; padding: 0 4px; font-weight: 700; color: #0f172a !important; }
+            .print-check { display: inline-block; width: 12px; height: 12px; border: 1.5px solid #0284c7 !important; border-radius: 3px; vertical-align: middle; margin: 0 3px; text-align: center; font-size: 8.5px; font-weight: bold; color: #0284c7; }
+        }
+    </style>
+</head>
+<body class="selection:bg-brand-500 selection:text-white">
+
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
+
+    <header class="sticky top-2 z-40 container-app px-2">
+        <div class="bento-card p-3 flex items-center justify-between gap-2 shadow-md">
+            <div class="flex items-center gap-2">
+                <span class="text-xs sm:text-sm font-extrabold" style="color: var(--accent-primary);">عيادة الدكتور مجيب النجار • Dr. Mouejib Clinic</span>
+            </div>
+
+            <div class="flex items-center gap-2 shrink-0">
+                <button onclick="openArchiveModal()" class="py-1.5 px-3 rounded-xl sub-box text-slate-200 text-xs font-bold flex items-center gap-1.5 transition">
+                    <i class="fa-solid fa-box-archive text-sky-400"></i>
+                    <span>الأرشيف (<span id="header_case_count_badge">0</span>)</span>
+                </button>
+                <button onclick="toggleTheme()" class="p-2 rounded-xl sub-box text-xs text-sky-400" title="تبديل الوضع">
+                    <i id="themeIcon" class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container-app py-4 space-y-4 relative z-10">
+
+        <!-- Top Action Bar -->
+        <section class="bento-card p-3.5 flex items-center justify-between gap-2">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 text-sm shrink-0">
+                    <i class="fa-solid fa-user-doctor"></i>
+                </div>
+                <div>
+                    <h4 class="text-xs sm:text-sm font-extrabold">طبلة المراجع السريرية (Case Sheet)</h4>
+                    <p style="color: var(--text-muted);" class="text-[10px] font-en">DR. MOUEJIB AL-NAJJAR DENTAL CLINIC</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-1.5">
+                <button onclick="saveCurrentCaseToDB()" class="px-2.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-md flex items-center gap-1 transition">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    <span>حفظ</span>
+                </button>
+                <button onclick="prepareAndPrint()" class="px-2.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold shadow-md flex items-center gap-1 transition">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    <span>طبلة PDF</span>
+                </button>
+                <button onclick="prepareAndPrintRx()" class="px-2.5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold shadow-md flex items-center gap-1 transition">
+                    <i class="fa-solid id-card fa-prescription"></i>
+                    <span>وصفة Rx</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- STEP 1: PATIENT & MEDICAL HISTORY -->
+        <div id="step_content_1" class="step-content active space-y-4">
+            <section class="bento-card p-4 sm:p-6 space-y-3">
+                <div class="flex items-center gap-2 font-bold text-xs sm:text-sm border-b border-slate-700/40 pb-2" style="color: var(--accent-primary);">
+                    <i class="fa-solid fa-id-card-clip"></i>
+                    <h3>1. معلومات المراجع والطبيب (Patient & Doctor Information)</h3>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 rounded-xl sub-box">
+                    <div>
+                        <label class="block text-xs font-semibold mb-1" style="color: var(--text-muted);">اسم الطبيب المعالج (Doctor Name):-</label>
+                        <input type="text" id="doctor_name" value="د. مجيب النجار" class="glass-input w-full px-3 py-2 rounded-xl text-xs font-medium">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1 font-en" style="color: var(--text-muted);">Date (تاريخ الزيارة):-</label>
+                        <input type="date" id="clinic_date" class="glass-input w-full px-3 py-2 rounded-xl text-xs font-medium font-en">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div class="sm:col-span-2">
+                        <label class="block text-xs font-semibold mb-1" style="color: var(--text-muted);">اسم المراجع الكامل (Patient Name):-</label>
+                        <input type="text" id="patient_name" class="glass-input w-full px-3 py-2 rounded-xl text-xs font-bold" style="color: var(--accent-primary);" placeholder="اسم المراجع الثلاثي">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1" style="color: var(--text-muted);">العمر (Age):-</label>
+                        <input type="number" id="patient_age" class="glass-input w-full px-3 py-2 rounded-xl text-xs font-en" placeholder="العمر">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1" style="color: var(--text-muted);">الجنس (Gender):-</label>
+                        <select id="patient_gender" class="glass-input w-full px-3 py-2 rounded-xl text-xs">
+                            <option value="Male">ذكر (Male)</option>
+                            <option value="Female">أنثى (Female)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1" style="color: var(--text-muted);">رقم الهاتف (Phone):-</label>
+                        <input type="tel" id="patient_phone" class="glass-input w-full px-3 py-2 rounded-xl text-xs font-en" placeholder="07xxxxxxxxx">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1" style="color: var(--text-muted);">المهنة (Job):-</label>
+                        <input type="text" id="patient_job" class="glass-input w-full px-3 py-2 rounded-xl text-xs" placeholder="المهنة">
+                    </div>
+                    <div class="sm:col-span-3">
+                        <label class="block text-xs font-semibold mb-1" style="color: var(--text-muted);">العنوان / السكن (Address):-</label>
+                        <input type="text" id="patient_address" class="glass-input w-full px-3 py-2 rounded-xl text-xs" placeholder="المدينة - المنطقة">
+                    </div>
+                </div>
+            </section>
+
+            <section class="bento-card p-4 sm:p-6 space-y-4">
+                <div class="flex items-center gap-2 font-bold text-xs sm:text-sm border-b border-slate-700/40 pb-2" style="color: var(--accent-primary);">
+                    <i class="fa-solid fa-notes-medical"></i>
+                    <h3>2. الشكوى الرئيسية والتاريخ الطبي (Chief Complaint & Medical History)</h3>
+                </div>
+
+                <div class="space-y-3">
+                    <label class="block text-xs font-bold" style="color: var(--text-muted);">الشكوى الرئيسية (Chief Complaint):</label>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                        <label class="segment-pill"><input type="checkbox" name="cc" value="Bleeding" class="hidden"><div class="p-2.5 rounded-xl text-center"><span class="block font-bold">نزف لثوي (Bleeding)</span></div></label>
+                        <label class="segment-pill"><input type="checkbox" name="cc" value="Pain" class="hidden"><div class="p-2.5 rounded-xl text-center"><span class="block font-bold">ألم الأسنان (Pain)</span></div></label>
+                        <label class="segment-pill"><input type="checkbox" name="cc" value="Sensitivity" class="hidden"><div class="p-2.5 rounded-xl text-center"><span class="block font-bold">تحسس (Sensitivity)</span></div></label>
+                        <label class="segment-pill"><input type="checkbox" name="cc" value="Swelling" class="hidden"><div class="p-2.5 rounded-xl text-center"><span class="block font-bold">تورم (Swelling)</span></div></label>
+                        <label class="segment-pill"><input type="checkbox" name="cc" value="Mobile teeth" class="hidden"><div class="p-2.5 rounded-xl text-center"><span class="block font-bold">حركة أسنان (Mobility)</span></div></label>
+                        <label class="segment-pill"><input type="checkbox" name="cc" value="Bad breath" class="hidden"><div class="p-2.5 rounded-xl text-center"><span class="block font-bold">رائحة الفم (Halitosis)</span></div></label>
+                        <label class="segment-pill"><input type="checkbox" name="cc" value="Scaling" class="hidden"><div class="p-2.5 rounded-xl text-center"><span class="block font-bold">تنظيف جير (Scaling)</span></div></label>
+                        <label class="segment-pill"><input type="checkbox" name="cc" value="Esthetic" class="hidden"><div class="p-2.5 rounded-xl text-center"><span class="block font-bold">تجميلي (Esthetic)</span></div></label>
+                        <label class="segment-pill"><input type="checkbox" name="cc" value="Unpleasant taste" class="hidden"><div class="p-2.5 rounded-xl text-center"><span class="block font-bold">طعم غير مستساغ (Taste)</span></div></label>
+                        <label class="segment-pill"><input type="checkbox" name="cc" value="Dry mouth" class="hidden"><div class="p-2.5 rounded-xl text-center"><span class="block font-bold">جفاف الفم (Dry mouth)</span></div></label>
+                        <label class="segment-pill"><input type="checkbox" name="cc" value="Migration teeth" class="hidden"><div class="p-2.5 rounded-xl text-center"><span class="block font-bold">تباعد (Migration)</span></div></label>
+                        <label class="segment-pill"><input type="checkbox" name="cc" value="Referral" class="hidden"><div class="p-2.5 rounded-xl text-center"><span class="block font-bold">إحالة (Referral)</span></div></label>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1" style="color: var(--text-muted);">شكوى رئيسية أخرى (Other Complaints):</label>
+                        <input type="text" id="other_complaint" class="glass-input w-full px-3 py-2 rounded-xl text-xs" placeholder="أدخل أي شكوى أخرى غير موجودة في القائمة...">
+                    </div>
+                </div>
+
+                <div class="border-t border-slate-700/40 pt-3 space-y-3 text-xs">
+                    <h4 class="font-bold" style="color: var(--accent-primary);">التاريخ الطبي العام (Medical History):</h4>
+                    
+                    <!-- ضغط الدم التفاعلي -->
+                    <div class="p-3 sub-box rounded-xl space-y-2.5">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold">ضغط الدم (Hypertension / Blood Pressure)</span>
+                            <input type="checkbox" id="med_htn" onchange="toggleMedSection('htn')" class="rounded w-4 h-4">
+                        </div>
+                        <div id="htn_sub_section" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 border-t border-slate-800">
+                            <div>
+                                <label class="block text-[11px] mb-1 opacity-80">الحالة (Status):</label>
+                                <select id="htn_status" class="glass-input w-full px-2.5 py-1.5 rounded-lg text-xs">
+                                    <option value="ارتفاع (High BP)">ارتفاع (High BP)</option>
+                                    <option value="انخفاض (Low BP)">انخفاض (Low BP)</option>
+                                    <option value="منتظم (Controlled)">منتظم (Controlled)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[11px] mb-1 opacity-80">آخر قراءة (Last Reading):</label>
+                                <input type="text" id="htn_reading" class="glass-input w-full px-2.5 py-1.5 rounded-lg text-xs" placeholder="مثال: 130/85 mmHg">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- السكري التفاعلي -->
+                    <div class="p-3 sub-box rounded-xl space-y-2.5">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold">مرض السكري (Diabetes Mellitus)</span>
+                            <input type="checkbox" id="med_dm" onchange="toggleMedSection('dm')" class="rounded w-4 h-4">
+                        </div>
+                        <div id="dm_sub_section" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 border-t border-slate-800">
+                            <div>
+                                <label class="block text-[11px] mb-1 opacity-80">نوع السكري / الانتظام (Type / Control):</label>
+                                <select id="dm_status" class="glass-input w-full px-2.5 py-1.5 rounded-lg text-xs">
+                                    <option value="Type 2 (Controlled)">النوع الثاني - منتظم (Type 2 - Controlled)</option>
+                                    <option value="Type 2 (Uncontrolled)">النوع الثاني - غير منتظم (Type 2 - Uncontrolled)</option>
+                                    <option value="Type 1 (Controlled)">النوع الأول - منتظم (Type 1 - Controlled)</option>
+                                    <option value="Type 1 (Uncontrolled)">النوع الأول - غير منتظم (Type 1 - Uncontrolled)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[11px] mb-1 opacity-80">آخر فحص سكر / التراكمي (Last Reading / HbA1c):</label>
+                                <input type="text" id="dm_reading" class="glass-input w-full px-2.5 py-1.5 rounded-lg text-xs" placeholder="مثال: 120 mg/dl أو HbA1c: 6.5">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div class="p-2.5 sub-box rounded-xl flex items-center justify-between">
+                            <span>أمراض القلب (Heart Disease)</span>
+                            <input type="checkbox" id="med_heart" class="rounded w-4 h-4">
+                        </div>
+                        <div class="p-2.5 sub-box rounded-xl flex items-center justify-between">
+                            <span>التهاب الكبد / أمراض معدية (Infectious Disease)</span>
+                            <input type="checkbox" id="med_infectious" class="rounded w-4 h-4">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold mb-1">أدوية أو حساسية مزمنة (Drug Allergies / Medications):</label>
+                        <input type="text" id="med_notes" class="glass-input w-full px-3 py-2 rounded-xl text-xs" placeholder="لا يوجد / ذكر التفاصيل...">
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- STEP 2: TARGET TOOTH & EXAMS -->
+        <div id="step_content_2" class="step-content space-y-4">
+            <section class="bento-card p-4 sm:p-6 space-y-3 border border-sky-500/30">
+                <div class="flex items-center gap-2 font-bold text-xs sm:text-sm border-b border-slate-700/40 pb-2" style="color: var(--accent-primary);">
+                    <i class="fa-solid fa-tooth"></i>
+                    <h3>3. السن المعالج أو المستهدف (Target Treated Tooth)</h3>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                    <div>
+                        <label class="block font-semibold mb-1">رقم السن أو المنطقة (Tooth Number / Arch):</label>
+                        <input type="text" id="target_tooth_num" class="glass-input w-full px-3 py-2.5 rounded-xl text-xs font-bold" placeholder="مثال: السن رقم 16 (Upper Right First Molar)">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1">نوع الإجراء المرتبط بالسن (Tooth Status / Procedure):</label>
+                        <input type="text" id="target_tooth_status" class="glass-input w-full px-3 py-2.5 rounded-xl text-xs" placeholder="مثال: Deep Caries / Root Canal / Scaling">
+                    </div>
+                </div>
+            </section>
+
+            <section class="bento-card p-4 sm:p-6 space-y-3">
+                <div class="flex items-center gap-2 font-bold text-xs sm:text-sm border-b border-slate-700/40 pb-2" style="color: var(--accent-primary);">
+                    <i class="fa-solid fa-user"></i>
+                    <h3>4. الفحص الخارجي (Extra-Oral Examination)</h3>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                    <div>
+                        <label class="block font-semibold mb-1">لون الوجه (Color of Face):</label>
+                        <input type="text" id="extra_face_color" class="glass-input w-full px-3 py-2 rounded-xl text-xs" placeholder="Normal">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1">تناسق الوجه (Facial Symmetry):</label>
+                        <input type="text" id="extra_symmetry" class="glass-input w-full px-3 py-2 rounded-xl text-xs" placeholder="Symmetrical">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1">الغدد الليمفاوية (Lymph Nodes):</label>
+                        <input type="text" id="extra_lymph" class="glass-input w-full px-3 py-2 rounded-xl text-xs" placeholder="Not palpable">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1">ملتحمة العين (Conjunctiva):</label>
+                        <input type="text" id="extra_conjunctiva" class="glass-input w-full px-3 py-2 rounded-xl text-xs" placeholder="Normal">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1">مفصل الفك (TMJ Dysfunction):</label>
+                        <input type="text" id="extra_tmj" class="glass-input w-full px-3 py-2 rounded-xl text-xs" placeholder="No clicking / pain">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1">ملاحظات خارجية أخرى (Other):</label>
+                        <input type="text" id="extra_other" class="glass-input w-full px-3 py-2 rounded-xl text-xs" placeholder="None">
+                    </div>
+                </div>
+            </section>
+
+            <section class="bento-card p-4 sm:p-6 space-y-3">
+                <div class="flex items-center gap-2 font-bold text-xs sm:text-sm border-b border-slate-700/40 pb-2" style="color: var(--accent-primary);">
+                    <i class="fa-solid fa-viruses"></i>
+                    <h3>5. الفحص الداخلي (Intra-Oral Examination)</h3>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                    <div>
+                        <label class="block font-semibold mb-1">قاع الفم (Floor of Mouth):</label>
+                        <input type="text" id="intra_floor" class="glass-input w-full px-3 py-2 rounded-xl text-xs" placeholder="Normal">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1">الغشاء المخاطي للخد (Cheeks):</label>
+                        <input type="text" id="intra_cheeks" class="glass-input w-full px-3 py-2 rounded-xl text-xs" placeholder="Normal">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1">اللسان (Tongue):</label>
+                        <input type="text" id="intra_tongue" class="glass-input w-full px-3 py-2 rounded-xl text-xs" placeholder="Normal">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1">سقف الفم (Palate):</label>
+                        <input type="text" id="intra_palate" class="glass-input w-full px-3 py-2 rounded-xl text-xs" placeholder="Normal">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1">اللثة (Gingiva):</label>
+                        <input type="text" id="intra_gingiva" class="glass-input w-full px-3 py-2 rounded-xl text-xs" placeholder="Healthy / Inflamed">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1">الشفاه (Lips):</label>
+                        <input type="text" id="intra_lips" class="glass-input w-full px-3 py-2 rounded-xl text-xs" placeholder="Normal">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
+                    <div>
+                        <label class="block font-semibold mb-1">الأسنان المفقودة (Missing Teeth):</label>
+                        <input type="text" id="missing_teeth" class="glass-input w-full px-3 py-2 rounded-xl text-xs" placeholder="مثال: 18, 28, 38">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1">حركة الأسنان (Mobile Teeth):</label>
+                        <input type="text" id="mobile_teeth" class="glass-input w-full px-3 py-2 rounded-xl text-xs" placeholder="مثال: Grade 1 in 31, 41">
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- STEP 3: DIAGNOSIS, TREATMENT & IMAGING (مع إضافة قسم الأشعة) -->
+        <div id="step_content_3" class="step-content space-y-4">
+            <section class="bento-card p-4 sm:p-6 space-y-4">
+                <div class="flex items-center gap-2 font-bold text-xs sm:text-sm border-b border-slate-700/40 pb-2" style="color: var(--accent-primary);">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    <h3>6. التشخيص وخطة العلاج (Diagnosis & Treatment Plan)</h3>
+                </div>
+
+                <div class="space-y-3 text-xs">
+                    <div>
+                        <label class="block font-bold mb-1" style="color: var(--accent-primary);">التشخيص الطبي السريري (Final Diagnosis):-</label>
+                        <input type="text" id="final_diagnosis" class="glass-input w-full px-3 py-2.5 rounded-xl text-xs font-bold" placeholder="أدخل التشخيص النهائي (مثال: Chronic Periodontitis / Deep Caries)">
+                    </div>
+
+                    <div>
+                        <label class="block font-bold mb-1">خطة العلاج والإجراءات (Treatment Plan):-</label>
+                        <div class="space-y-2">
+                            <input type="text" id="tx_1" class="glass-input w-full px-3 py-2 rounded-xl text-xs" placeholder="1. Scaling & Polishing / Oral Hygiene Instructions">
+                            <input type="text" id="tx_2" class="glass-input w-full px-3 py-2 rounded-xl text-xs" placeholder="2. Composite Restoration / Endodontic Treatment">
+                            <input type="text" id="tx_3" class="glass-input w-full px-3 py-2 rounded-xl text-xs" placeholder="3. Follow-up & Review">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- الصور السريرية وصور الأشعة الجديدة -->
+            <section class="bento-card p-4 sm:p-6 space-y-3">
+                <div class="flex items-center gap-2 font-bold text-xs sm:text-sm border-b border-slate-700/40 pb-2" style="color: var(--accent-primary);">
+                    <i class="fa-solid fa-camera-retro"></i>
+                    <h3>الصور السريرية والأشعة (Clinical & X-Ray Imaging)</h3>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                    <div class="p-3 sub-box rounded-xl space-y-2">
+                        <span class="font-bold block text-sky-400">قبل العلاج (Pre-op):</span>
+                        <div id="preOpPreview" class="h-28 rounded-xl border border-dashed border-slate-700 flex items-center justify-center overflow-hidden cursor-pointer sub-box" onclick="document.getElementById('preOpInput').click()">
+                            <span style="color: var(--text-muted);" class="flex flex-col items-center gap-1"><i class="fa-solid fa-cloud-arrow-up"></i> رفع صورة</span>
+                        </div>
+                        <input type="file" id="preOpInput" accept="image/*" class="hidden" onchange="previewClinicalImage(this, 'preOpPreview')">
+                    </div>
+
+                    <div class="p-3 sub-box rounded-xl space-y-2">
+                        <span class="font-bold block text-emerald-400">بعد العلاج (Post-op):</span>
+                        <div id="postOpPreview" class="h-28 rounded-xl border border-dashed border-slate-700 flex items-center justify-center overflow-hidden cursor-pointer sub-box" onclick="document.getElementById('postOpInput').click()">
+                            <span style="color: var(--text-muted);" class="flex flex-col items-center gap-1"><i class="fa-solid fa-cloud-arrow-up"></i> رفع صورة</span>
+                        </div>
+                        <input type="file" id="postOpInput" accept="image/*" class="hidden" onchange="previewClinicalImage(this, 'postOpPreview')">
+                    </div>
+
+                    <div class="p-3 sub-box rounded-xl space-y-2">
+                        <span class="font-bold block text-purple-400">صور الأشعة (X-Ray / OPG):</span>
+                        <div id="xrayPreview" class="h-28 rounded-xl border border-dashed border-slate-700 flex items-center justify-center overflow-hidden cursor-pointer sub-box" onclick="document.getElementById('xrayInput').click()">
+                            <span style="color: var(--text-muted);" class="flex flex-col items-center gap-1"><i class="fa-solid fa-x-ray"></i> رفع صورة أشعة</span>
+                        </div>
+                        <input type="file" id="xrayInput" accept="image/*" class="hidden" onchange="previewClinicalImage(this, 'xrayPreview')">
+                    </div>
+                </div>
+            </section>
+
+            <!-- قسم الوصفة الطبية (Prescription / Rx) المدمج الجديد -->
+            <section class="bento-card p-4 sm:p-6 space-y-3 border border-purple-500/30">
+                <div class="flex items-center gap-2 font-bold text-xs sm:text-sm border-b border-slate-700/40 pb-2" style="color: var(--accent-primary);">
+                    <i class="fa-solid fa-prescription"></i>
+                    <h3>الوصفة الطبية (Prescription / Rx)</h3>
+                </div>
+                <div class="space-y-3 text-xs">
+                    <div>
+                        <label class="block font-semibold mb-1">كتابة الأدوية والتعليمات (Rx Medication & Instructions):</label>
+                        <textarea id="rx_medications" rows="4" class="glass-input w-full p-3 rounded-xl text-xs" placeholder="1. Amoxicillin 500mg - 1 capsule every 8 hours&#10;2. Ibuprofen 400mg - As needed for pain&#10;3. Chlorhexidine Mouthwash - Twice daily"></textarea>
+                    </div>
+                    <div class="flex justify-end">
+                        <button onclick="prepareAndPrintRx()" class="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold shadow transition flex items-center gap-2">
+                            <i class="fa-solid fa-print"></i> طباعة الوصفة الطبية (Print Rx)
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- STEP 4: SIGNATURE -->
+        <div id="step_content_4" class="step-content space-y-4">
+            <section class="bento-card p-4 sm:p-6 space-y-4 border border-sky-500/30">
+                <div class="flex justify-between items-center border-b border-slate-700/40 pb-2">
+                    <div class="flex items-center gap-2 font-bold text-xs sm:text-sm" style="color: var(--accent-primary);">
+                        <i class="fa-solid fa-signature"></i>
+                        <h3>7. توقيع وختم الطبيب (Doctor Signature & Stamp)</h3>
+                    </div>
+                    <button onclick="clearSignature()" class="text-xs text-red-400 hover:underline">مسح التوقيع (Clear)</button>
+                </div>
+
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">اسم الطبيب (Doctor Name):-</label>
+                        <input type="text" id="signature_doctor_name" value="د. مجيب النجار" class="glass-input w-full px-3 py-2 rounded-xl text-xs font-bold">
+                    </div>
+                    <div>
+                        <div class="border border-slate-700 rounded-xl overflow-hidden sub-box shadow-inner">
+                            <canvas id="signatureCanvas" class="w-full h-28 block"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <nav class="fixed bottom-3 inset-x-3 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 z-50 max-w-md w-auto mx-auto bottom-nav-dock p-1.5 rounded-full flex items-center justify-between gap-1 select-none">
+        <button onclick="switchStep(1)" id="bottom_nav_1" class="nav-btn active group py-2 px-3.5 rounded-full flex flex-col items-center justify-center text-slate-400">
+            <i class="fa-solid fa-hospital-user text-sm"></i>
+            <span class="text-[9px] font-bold mt-0.5">المراجع</span>
+        </button>
+
+        <button onclick="switchStep(2)" id="bottom_nav_2" class="nav-btn group py-2 px-3.5 rounded-full flex flex-col items-center justify-center text-slate-400">
+            <i class="fa-solid fa-tooth text-sm"></i>
+            <span class="text-[9px] font-bold mt-0.5">الفحص</span>
+        </button>
+
+        <button onclick="switchStep(3)" id="bottom_nav_3" class="nav-btn group py-2 px-3.5 rounded-full flex flex-col items-center justify-center text-slate-400">
+            <i class="fa-solid fa-wand-magic-sparkles text-sm"></i>
+            <span class="text-[9px] font-bold mt-0.5">العلاج</span>
+        </button>
+
+        <button onclick="switchStep(4)" id="bottom_nav_4" class="nav-btn group py-2 px-3.5 rounded-full flex flex-col items-center justify-center text-slate-400">
+            <i class="fa-solid fa-signature text-sm"></i>
+            <span class="text-[9px] font-bold mt-0.5">التوقيع</span>
+        </button>
+
+        <div class="w-[1px] h-5 bg-slate-700 my-auto"></div>
+
+        <button onclick="resetCaseSheet()" class="p-2.5 text-slate-400 hover:text-red-400 rounded-full transition" title="تفريغ الكيس">
+            <i class="fa-solid fa-arrow-rotate-right text-xs"></i>
+        </button>
+    </nav>
+
+    <!-- Archive Modal -->
+    <div id="archiveModal" class="fixed inset-0 z-[115] bg-slate-950/90 backdrop-blur-xl p-4 hidden items-center justify-center">
+        <div class="bento-card p-4 max-w-lg w-full max-h-[85vh] flex flex-col justify-between">
+            <div class="space-y-3">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                    <h3 class="text-sm font-bold">أرشيف مراجعين عيادة د. مجيب النجار</h3>
+                    <button onclick="closeArchiveModal()" class="opacity-60 hover:opacity-100"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="flex items-center gap-2">
+                    <input type="text" id="archiveSearchInput" oninput="renderArchiveList()" class="glass-input flex-1 px-3 py-2 rounded-xl text-xs" placeholder="ابحث باسم المراجع...">
+                    <button onclick="startNewBlankCase()" class="px-3 py-2 rounded-xl bg-sky-500/20 text-sky-300 text-xs font-bold border border-sky-500/30 whitespace-nowrap">
+                        <i class="fa-solid fa-plus ml-1"></i> مراجع جديد
+                    </button>
+                </div>
+            </div>
+            <div id="archiveListContainer" class="my-3 overflow-y-auto max-h-[45vh] space-y-2 custom-scroll pr-1"></div>
+            <div class="pt-2 border-t border-slate-800 flex justify-between items-center text-xs opacity-75">
+                <span>تخزين محلي آمن</span>
+                <button onclick="closeArchiveModal()" class="px-3 py-1 rounded sub-box font-bold">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- OFFICIAL PRINT TEMPLATE (ورقة الطبلة السريرية الرسمية) -->
+    <div id="officialPrintLayout" dir="ltr" class="text-slate-900 font-sans p-1">
+        <div class="print-sheet space-y-2.5">
+            <div class="flex justify-between items-center border-b-2 border-sky-600 pb-2">
+                <div class="text-left text-xs leading-tight">
+                    <h2 class="font-bold text-sm text-sky-700">Dr. Mouejib Al-Najjar Dental Clinic</h2>
+                    <p class="text-[10px] text-slate-600">Professional Dental Case Sheet & Medical Record</p>
+                </div>
+                <div class="text-right text-xs leading-tight" dir="rtl">
+                    <h2 class="font-bold text-sm text-sky-700">عيادة الدكتور مجيب النجار</h2>
+                    <p class="text-[10px] text-slate-600">سجل الطبلة السريرية للمراجعين</p>
+                </div>
+            </div>
+
+            <div class="print-box flex justify-between items-center text-xs">
+                <div><span class="font-bold">Attending Doctor: </span><span class="print-field w-56 text-center" id="p_doctor_name"></span></div>
+                <div><span class="print-field w-32 text-center" id="p_clinic_date"></span> :<span class="font-bold">Date</span></div>
+            </div>
+
+            <div class="print-box space-y-1 text-xs">
+                <div class="print-title">Patient Personal Information</div>
+                <div class="flex justify-between items-center">
+                    <div><span class="font-bold">Full Name: </span><span class="print-field w-64 text-center" id="p_patient_name"></span></div>
+                    <div><span class="font-bold">Age: </span><span class="print-field w-12 text-center" id="p_patient_age"></span></div>
+                    <div><span class="font-bold">Gender: </span><span class="print-field w-20 text-center" id="p_patient_gender"></span></div>
+                </div>
+                <div class="flex justify-between items-center pt-1">
+                    <div><span class="font-bold">Phone: </span><span class="print-field w-36 text-center" id="p_patient_phone"></span></div>
+                    <div><span class="font-bold">Job: </span><span class="print-field w-36 text-center" id="p_patient_job"></span></div>
+                    <div><span class="font-bold">Address: </span><span class="print-field w-40 text-center" id="p_patient_address"></span></div>
+                </div>
+            </div>
+
+            <div class="print-box space-y-1.5 text-xs">
+                <div class="print-title">Chief Complaint & Medical History</div>
+                <div class="flex flex-wrap gap-2 text-[11px]" id="p_cc_container"></div>
+                <div class="pt-1.5 border-t border-slate-300 grid grid-cols-2 gap-2 text-[11px]">
+                    <div>Hypertension (HTN): <span class="print-field w-36 text-center" id="p_p_htn"></span></div>
+                    <div>Diabetes (DM): <span class="print-field w-36 text-center" id="p_p_dm"></span></div>
+                </div>
+                <div class="flex gap-4 pt-1 text-[11px]">
+                    <span>Heart Disease: <span class="print-check" id="p_med_heart"></span></span>
+                    <span>Infectious Disease: <span class="print-check" id="p_med_infectious"></span></span>
+                </div>
+                <div>Allergies / Medications: <span class="print-field w-full" id="p_med_notes"></span></div>
+            </div>
+
+            <div class="print-box space-y-1 text-xs">
+                <div class="print-title">Target Treated Tooth</div>
+                <div class="flex gap-4">
+                    <div>Tooth / Arch Number: <span class="print-field w-52 text-center font-bold" id="p_target_tooth_num"></span></div>
+                    <div>Procedure / Status: <span class="print-field w-64 text-center" id="p_target_tooth_status"></span></div>
+                </div>
+            </div>
+
+            <div class="print-box space-y-1.5 text-xs">
+                <div class="print-title">Clinical Examination (Extra-Oral & Intra-Oral)</div>
+                <div class="grid grid-cols-3 gap-1 text-[11px]">
+                    <div>Face Color: <span class="print-field w-24" id="p_extra_face_color"></span></div>
+                    <div>Symmetry: <span class="print-field w-24" id="p_extra_symmetry"></span></div>
+                    <div>Lymph Nodes: <span class="print-field w-24" id="p_extra_lymph"></span></div>
+                    <div>Conjunctiva: <span class="print-field w-24" id="p_extra_conjunctiva"></span></div>
+                    <div>TMJ: <span class="print-field w-24" id="p_extra_tmj"></span></div>
+                    <div>Other (Extra): <span class="print-field w-24" id="p_extra_other"></span></div>
+                </div>
+                <div class="grid grid-cols-3 gap-1 text-[11px] pt-1.5 border-t border-slate-300">
+                    <div>Floor of Mouth: <span class="print-field w-24" id="p_intra_floor"></span></div>
+                    <div>Cheeks: <span class="print-field w-24" id="p_intra_cheeks"></span></div>
+                    <div>Tongue: <span class="print-field w-24" id="p_intra_tongue"></span></div>
+                    <div>Palate: <span class="print-field w-24" id="p_intra_palate"></span></div>
+                    <div>Gingiva: <span class="print-field w-24" id="p_intra_gingiva"></span></div>
+                    <div>Lips: <span class="print-field w-24" id="p_intra_lips"></span></div>
+                </div>
+                <div class="flex gap-4 pt-1.5 border-t border-slate-300 text-[11px]">
+                    <div>Missing Teeth: <span class="print-field w-40 text-center" id="p_missing_teeth"></span></div>
+                    <div>Mobile Teeth: <span class="print-field w-40 text-center" id="p_mobile_teeth"></span></div>
+                </div>
+            </div>
+
+            <div class="print-box space-y-1.5 text-xs">
+                <div class="print-title">Diagnosis & Treatment Plan</div>
+                <div>Final Diagnosis: <span class="print-field w-full font-bold" id="p_final_diagnosis"></span></div>
+                <div class="space-y-1 pt-1">
+                    <div>1. <span class="print-field w-full" id="p_tx_1"></span></div>
+                    <div>2. <span class="print-field w-full" id="p_tx_2"></span></div>
+                    <div>3. <span class="print-field w-full" id="p_tx_3"></span></div>
+                </div>
+            </div>
+
+            <div class="print-box border border-sky-600 min-h-[85px] flex flex-col justify-between text-xs p-2 bg-white !important;">
+                <div class="flex justify-between items-center">
+                    <span class="font-bold text-xs text-sky-700">Doctor Signature & Stamp :-</span>
+                    <span class="print-field w-40 text-center font-bold" id="p_signature_doctor_name"></span>
+                </div>
+                <div class="w-full flex items-center justify-center">
+                    <img id="p_sig_img" class="max-h-12 mx-auto hidden" alt="Signature">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RX PRINT TEMPLATE (ورقة الوصفة الطبية الرسمية المستقلة) -->
+    <div id="rxPrintLayout" dir="ltr" class="text-slate-900 font-sans p-4">
+        <div class="rx-sheet space-y-6">
+            <div class="flex justify-between items-center border-b-2 border-purple-600 pb-3">
+                <div class="text-left text-xs leading-tight">
+                    <h2 class="font-bold text-base text-purple-700">Dr. Mouejib Al-Najjar Dental Clinic</h2>
+                    <p class="text-xs text-slate-600">Medical Prescription (Rx)</p>
+                </div>
+                <div class="text-right text-xs leading-tight" dir="rtl">
+                    <h2 class="font-bold text-base text-purple-700">عيادة الدكتور مجيب النجار</h2>
+                    <p class="text-xs text-slate-600">الوصفة الطبية الرسمية</p>
+                </div>
+            </div>
+
+            <div class="rx-box flex justify-between items-center text-xs">
+                <div><span class="font-bold">Patient Name: </span><span class="print-field w-64 text-center font-bold" id="rx_p_name"></span></div>
+                <div><span class="font-bold">Age: </span><span class="print-field w-14 text-center" id="rx_p_age"></span></div>
+                <div><span class="print-bold">Date: </span><span class="print-field w-32 text-center" id="rx_p_date"></span></div>
+            </div>
+
+            <div class="rx-box min-h-[280px] p-4 space-y-4 text-sm font-en">
+                <div class="text-2xl font-bold text-purple-700 font-serif">Rx</div>
+                <div id="rx_p_content" class="whitespace-pre-line leading-relaxed px-4 text-slate-800"></div>
+            </div>
+
+            <div class="rx-box border border-purple-600 min-h-[100px] flex flex-col justify-between text-xs p-3 bg-white !important;">
+                <div class="flex justify-between items-center">
+                    <span class="font-bold text-xs text-purple-700">Attending Doctor Signature :-</span>
+                    <span class="print-field w-44 text-center font-bold" id="rx_p_doc"></span>
+                </div>
+                <div class="w-full flex items-center justify-center">
+                    <img id="rx_sig_img" class="max-h-14 mx-auto hidden" alt="Signature">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Script -->
+    <script>
+        let currentActiveCaseId = null;
+        let dbInstance = null;
+
+        function switchStep(stepNumber) {
+            for (let i = 1; i <= 4; i++) {
+                const navBtn = document.getElementById(`bottom_nav_${i}`);
+                const content = document.getElementById(`step_content_${i}`);
+                if (navBtn) navBtn.classList.toggle('active', i === stepNumber);
+                if (content) content.classList.toggle('active', i === stepNumber);
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (stepNumber === 4) setTimeout(resizeCanvas, 50);
+        }
+
+        function toggleMedSection(type) {
+            const isChecked = document.getElementById(`med_${type}`).checked;
+            const subSec = document.getElementById(`${type}_sub_section`);
+            if (isChecked) {
+                subSec.classList.remove('hidden');
+            } else {
+                subSec.classList.add('hidden');
+            }
+        }
+
+        function initIndexedDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open('MouejibDentalCaseDB', 5);
+                request.onupgradeneeded = (e) => {
+                    const db = e.target.result;
+                    if (!db.objectStoreNames.contains('cases')) db.createObjectStore('cases', { keyPath: 'id' });
+                };
+                request.onsuccess = (e) => { dbInstance = e.target.result; resolve(dbInstance); };
+                request.onerror = (e) => reject(e);
+            });
+        }
+
+        async function dbSaveCase(caseObject) {
+            if (!dbInstance) await initIndexedDB();
+            return new Promise((resolve, reject) => {
+                const tx = dbInstance.transaction('cases', 'readwrite');
+                const store = tx.objectStore('cases');
+                store.put(caseObject);
+                tx.oncomplete = () => resolve(true);
+                tx.onerror = (e) => reject(e);
+            });
+        }
+
+        async function dbGetAllCases() {
+            if (!dbInstance) await initIndexedDB();
+            return new Promise((resolve, reject) => {
+                const tx = dbInstance.transaction('cases', 'readonly');
+                const store = tx.objectStore('cases');
+                const request = store.getAll();
+                request.onsuccess = () => resolve(request.result || []);
+                request.onerror = (e) => reject(e);
+            });
+        }
+
+        async function dbGetCaseById(id) {
+            if (!dbInstance) await initIndexedDB();
+            return new Promise((resolve, reject) => {
+                const tx = dbInstance.transaction('cases', 'readonly');
+                const store = tx.objectStore('cases');
+                const request = store.get(id);
+                request.onsuccess = () => resolve(request.result);
+                request.onerror = (e) => reject(e);
+            });
+        }
+
+        async function dbDeleteCase(id) {
+            if (!dbInstance) await initIndexedDB();
+            return new Promise((resolve, reject) => {
+                const tx = dbInstance.transaction('cases', 'readwrite');
+                const store = tx.objectStore('cases');
+                store.delete(id);
+                tx.oncomplete = () => resolve(true);
+                tx.onerror = (e) => reject(e);
+            });
+        }
+
+        function openArchiveModal() { renderArchiveList(); document.getElementById('archiveModal').classList.add('active'); }
+        function closeArchiveModal() { document.getElementById('archiveModal').classList.remove('active'); }
+
+        async function updateHeaderBadge() {
+            const cases = await dbGetAllCases();
+            const badge = document.getElementById('header_case_count_badge');
+            if (badge) badge.innerText = cases.length;
+        }
+
+        async function renderArchiveList() {
+            const container = document.getElementById('archiveListContainer');
+            const search = document.getElementById('archiveSearchInput').value.toLowerCase().trim();
+            const cases = await dbGetAllCases();
+            updateHeaderBadge();
+
+            if (!cases.length) {
+                container.innerHTML = `<div class="text-center py-6 text-xs opacity-50">الأرشيف فارغ حالياً.</div>`;
+                return;
+            }
+
+            const filtered = cases.filter(c => (c.patientName && c.patientName.toLowerCase().includes(search)) || (c.diagnosis && c.diagnosis.toLowerCase().includes(search)));
+            filtered.sort((a,b) => b.updatedAt - a.updatedAt);
+
+            container.innerHTML = filtered.map(c => `
+                <div class="p-2.5 rounded-xl sub-box ${c.id === currentActiveCaseId ? 'border-sky-500' : ''} flex items-center justify-between gap-2">
+                    <div class="space-y-0.5">
+                        <h4 class="text-xs font-bold">${c.patientName}</h4>
+                        <p style="color: var(--text-muted);" class="text-[10px]">${c.date || '---'} • ${c.diagnosis || 'بدون تشخيص'}</p>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <button onclick="loadCaseFromDB('${c.id}')" class="px-2.5 py-1 rounded bg-sky-500/20 text-sky-300 text-xs font-bold">فتح</button>
+                        <button onclick="deleteCaseFromDB('${c.id}')" class="p-1 rounded bg-red-500/10 text-red-400 text-xs"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function saveCurrentCaseToDB() {
+            const pName = document.getElementById('patient_name').value.trim();
+            if (!pName) {
+                switchStep(1);
+                document.getElementById('patient_name').focus();
+                return alert('يرجى إدخال اسم المراجع أولاً');
+            }
+
+            const caseId = currentActiveCaseId || ('case_' + Date.now());
+            const caseRecord = {
+                id: caseId,
+                patientName: pName,
+                diagnosis: document.getElementById('final_diagnosis').value.trim(),
+                date: document.getElementById('clinic_date').value,
+                updatedAt: Date.now(),
+                stateData: getFullCaseState()
+            };
+
+            await dbSaveCase(caseRecord);
+            currentActiveCaseId = caseId;
+            updateHeaderBadge();
+            alert('تم حفظ حالة المراجع بنجاح!');
+        }
+
+        async function loadCaseFromDB(id) {
+            const c = await dbGetCaseById(id);
+            if (c && c.stateData) {
+                currentActiveCaseId = c.id;
+                restoreFullCaseState(c.stateData);
+                closeArchiveModal();
+            }
+        }
+
+        async function deleteCaseFromDB(id) {
+            if (confirm('هل أنت متأكد من حذف هذه الحالة من الأرشيف؟')) {
+                await dbDeleteCase(id);
+                if (currentActiveCaseId === id) currentActiveCaseId = null;
+                renderArchiveList();
+            }
+        }
+
+        function startNewBlankCase() {
+            if (confirm('هل تريد بدء طبلة مراجع جديدة؟')) {
+                currentActiveCaseId = null;
+                resetFormFieldsOnly();
+                closeArchiveModal();
+                switchStep(1);
+            }
+        }
+
+        function resetFormFieldsOnly() {
+            document.querySelectorAll('input[type="text"]:not(#doctor_name):not(#signature_doctor_name), input[type="number"], input[type="tel"], textarea').forEach(i => i.value = '');
+            document.querySelectorAll('input[type="checkbox"]').forEach(i => { i.checked = false; });
+            document.getElementById('htn_sub_section').classList.add('hidden');
+            document.getElementById('dm_sub_section').classList.add('hidden');
+            document.getElementById('preOpPreview').innerHTML = `<span style="color: var(--text-muted);" class="flex flex-col items-center gap-1"><i class="fa-solid fa-cloud-arrow-up"></i> رفع صورة</span>`;
+            document.getElementById('postOpPreview').innerHTML = `<span style="color: var(--text-muted);" class="flex flex-col items-center gap-1"><i class="fa-solid fa-cloud-arrow-up"></i> رفع صورة</span>`;
+            document.getElementById('xrayPreview').innerHTML = `<span style="color: var(--text-muted);" class="flex flex-col items-center gap-1"><i class="fa-solid fa-x-ray"></i> رفع صورة أشعة</span>`;
+            clearSignature();
+        }
+
+        let canvas, ctx, isDrawing = false;
+        let lastSignatureData = null;
+
+        function resizeCanvas() {
+            if (!canvas || !canvas.parentElement) return;
+            const rect = canvas.parentElement.getBoundingClientRect();
+            if (rect.width <= 0) return;
+
+            if (canvas.width > 0 && canvas.height > 0) {
+                try {
+                    const data = canvas.toDataURL();
+                    if (data && data.length > 500) lastSignatureData = data;
+                } catch(e){}
+            }
+
+            const ratio = Math.max(window.devicePixelRatio || 1, 1);
+            canvas.width = rect.width * ratio;
+            canvas.height = 110 * ratio;
+            canvas.style.width = rect.width + 'px';
+            canvas.style.height = '110px';
+
+            ctx = canvas.getContext('2d');
+            ctx.scale(ratio, ratio);
+            ctx.strokeStyle = document.documentElement.getAttribute('data-theme') === 'light' ? '#1d4ed8' : '#38bdf8';
+            ctx.lineWidth = 2.5;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            if (lastSignatureData) {
+                const img = new Image();
+                img.onload = () => ctx.drawImage(img, 0, 0, rect.width, 110);
+                img.src = lastSignatureData;
+            }
+        }
+
+        function initSignaturePad() {
+            canvas = document.getElementById('signatureCanvas');
+            if (!canvas) return;
+
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            const getPos = (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                return { x: clientX - rect.left, y: clientY - rect.top };
+            };
+
+            const start = (e) => {
+                isDrawing = true;
+                ctx.beginPath();
+                const pos = getPos(e);
+                ctx.moveTo(pos.x, pos.y);
+                if (e.cancelable) e.preventDefault();
+            };
+
+            const draw = (e) => {
+                if (!isDrawing) return;
+                const pos = getPos(e);
+                ctx.lineTo(pos.x, pos.y);
+                ctx.stroke();
+                if (e.cancelable) e.preventDefault();
+            };
+
+            const stop = () => {
+                if (isDrawing) {
+                    isDrawing = false;
+                    try { lastSignatureData = canvas.toDataURL(); } catch(e){}
+                    triggerAutoSave();
+                }
+            };
+
+            canvas.addEventListener('mousedown', start);
+            canvas.addEventListener('mousemove', draw);
+            window.addEventListener('mouseup', stop);
+
+            canvas.addEventListener('touchstart', start, { passive: false });
+            canvas.addEventListener('touchmove', draw, { passive: false });
+            window.addEventListener('touchend', stop);
+        }
+
+        function clearSignature() {
+            if (ctx && canvas) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                lastSignatureData = null;
+                triggerAutoSave();
+            }
+        }
+
+        let autoSaveTimeout;
+        function triggerAutoSave() {
+            clearTimeout(autoSaveTimeout);
+            autoSaveTimeout = setTimeout(() => {
+                localStorage.setItem('active_mouejib_case_data', JSON.stringify(getFullCaseState()));
+            }, 500);
+        }
+
+        function bindAutoSaveEvents() {
+            document.querySelectorAll('input, select, textarea').forEach(el => {
+                el.addEventListener('input', triggerAutoSave);
+                el.addEventListener('change', triggerAutoSave);
+            });
+        }
+
+        function getFullCaseState() {
+            const data = {
+                inputs: {}, checkboxes: {}, signatureData: lastSignatureData,
+                preOpImg: document.querySelector('#preOpPreview img') ? document.querySelector('#preOpPreview img').src : null,
+                postOpImg: document.querySelector('#postOpPreview img') ? document.querySelector('#postOpPreview img').src : null,
+                xrayImg: document.querySelector('#xrayPreview img') ? document.querySelector('#xrayPreview img').src : null
+            };
+
+            if (canvas && (!data.signatureData || data.signatureData.length < 500)) {
+                try { data.signatureData = canvas.toDataURL(); } catch(e){}
+            }
+
+            document.querySelectorAll('input[type="text"], input[type="number"], input[type="tel"], input[type="date"], select, textarea').forEach(el => {
+                if (el.id) data.inputs[el.id] = el.value;
+            });
+
+            document.querySelectorAll('input[type="checkbox"]').forEach(el => {
+                const key = el.id || (el.name + '_' + el.value);
+                data.checkboxes[key] = el.checked;
+            });
+
+            return data;
+        }
+
+        function restoreFullCaseState(data) {
+            if (!data) return;
+            try {
+                if (data.inputs) {
+                    for (const [id, val] of Object.entries(data.inputs)) {
+                        const el = document.getElementById(id);
+                        if (el) el.value = val;
+                    }
+                }
+
+                if (data.checkboxes) {
+                    for (const [key, val] of Object.entries(data.checkboxes)) {
+                        const elById = document.getElementById(key);
+                        if (elById) {
+                            elById.checked = val;
+                            if (key === 'med_htn' || key === 'med_dm') toggleMedSection(key.replace('med_', ''));
+                        }
+                    }
+                }
+
+                if (data.preOpImg) document.getElementById('preOpPreview').innerHTML = `<img src="${data.preOpImg}" class="w-full h-full object-cover rounded-xl" alt="Pre-op">`;
+                if (data.postOpImg) document.getElementById('postOpPreview').innerHTML = `<img src="${data.postOpImg}" class="w-full h-full object-cover rounded-xl" alt="Post-op">`;
+                if (data.xrayImg) document.getElementById('xrayPreview').innerHTML = `<img src="${data.xrayImg}" class="w-full h-full object-cover rounded-xl" alt="X-Ray">`;
+
+                clearSignature();
+                if (data.signatureData) {
+                    lastSignatureData = data.signatureData;
+                    if (ctx) {
+                        const img = new Image();
+                        img.onload = () => ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        img.src = data.signatureData;
+                    }
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        function resetCaseSheet() {
+            if (confirm('هل أنت متأكد من تفريغ الحقول بالكامل؟')) {
+                currentActiveCaseId = null;
+                resetFormFieldsOnly();
+                localStorage.removeItem('active_mouejib_case_data');
+                switchStep(1);
+            }
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            const icon = document.getElementById('themeIcon');
+            if (newTheme === 'light') icon.className = 'fa-solid fa-sun text-amber-500';
+            else icon.className = 'fa-solid fa-moon text-sky-400';
+            localStorage.setItem('mouejib_theme_mode', newTheme);
+            if (ctx) ctx.strokeStyle = newTheme === 'light' ? '#1d4ed8' : '#38bdf8';
+        }
+
+        function previewClinicalImage(input, previewId) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    document.getElementById(previewId).innerHTML = `<img src="${e.target.result}" class="w-full h-full object-cover rounded-xl" alt="Photo">`;
+                    triggerAutoSave();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function syncPrintData() {
+            const getVal = (id) => document.getElementById(id) ? document.getElementById(id).value.trim() : '';
+
+            document.getElementById('p_doctor_name').innerText = getVal('doctor_name');
+            document.getElementById('p_clinic_date').innerText = getVal('clinic_date');
+            document.getElementById('p_patient_name').innerText = getVal('patient_name');
+            document.getElementById('p_patient_age').innerText = getVal('patient_age');
+            document.getElementById('p_patient_gender').innerText = getVal('patient_gender');
+            document.getElementById('p_patient_phone').innerText = getVal('patient_phone');
+            document.getElementById('p_patient_job').innerText = getVal('patient_job');
+            document.getElementById('p_patient_address').innerText = getVal('patient_address');
+
+            document.getElementById('p_target_tooth_num').innerText = getVal('target_tooth_num');
+            document.getElementById('p_target_tooth_status').innerText = getVal('target_tooth_status');
+
+            document.getElementById('p_extra_face_color').innerText = getVal('extra_face_color');
+            document.getElementById('p_extra_symmetry').innerText = getVal('extra_symmetry');
+            document.getElementById('p_extra_lymph').innerText = getVal('extra_lymph');
+            document.getElementById('p_extra_conjunctiva').innerText = getVal('extra_conjunctiva');
+            document.getElementById('p_extra_tmj').innerText = getVal('extra_tmj');
+            document.getElementById('p_extra_other').innerText = getVal('extra_other');
+
+            document.getElementById('p_intra_floor').innerText = getVal('intra_floor');
+            document.getElementById('p_intra_cheeks').innerText = getVal('intra_cheeks');
+            document.getElementById('p_intra_tongue').innerText = getVal('intra_tongue');
+            document.getElementById('p_intra_palate').innerText = getVal('intra_palate');
+            document.getElementById('p_intra_gingiva').innerText = getVal('intra_gingiva');
+            document.getElementById('p_intra_lips').innerText = getVal('intra_lips');
+            document.getElementById('p_missing_teeth').innerText = getVal('missing_teeth');
+            document.getElementById('p_mobile_teeth').innerText = getVal('mobile_teeth');
+
+            document.getElementById('p_final_diagnosis').innerText = getVal('final_diagnosis');
+            document.getElementById('p_tx_1').innerText = getVal('tx_1');
+            document.getElementById('p_tx_2').innerText = getVal('tx_2');
+            document.getElementById('p_tx_3').innerText = getVal('tx_3');
+            document.getElementById('p_med_notes').innerText = getVal('med_notes');
+            document.getElementById('p_signature_doctor_name').innerText = getVal('signature_doctor_name');
+
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                const el = document.getElementById(`p_${cb.id}`);
+                if (el) el.innerText = cb.checked ? '✔' : '';
+            });
+
+            const htnChecked = document.getElementById('med_htn').checked;
+            document.getElementById('p_p_htn').innerText = htnChecked ? `${getVal('htn_status')} (${getVal('htn_reading')})` : 'None';
+
+            const dmChecked = document.getElementById('med_dm').checked;
+            document.getElementById('p_p_dm').innerText = dmChecked ? `${getVal('dm_status')} (${getVal('dm_reading')})` : 'None';
+
+            const ccContainer = document.getElementById('p_cc_container');
+            ccContainer.innerHTML = '';
+            document.querySelectorAll('input[name="cc"]:checked').forEach(cb => {
+                ccContainer.innerHTML += `<div class="bg-slate-100 px-2 py-0.5 rounded border border-slate-200">• ${cb.value}</div>`;
+            });
+            const otherCc = getVal('other_complaint');
+            if (otherCc) {
+                ccContainer.innerHTML += `<div class="bg-slate-100 px-2 py-0.5 rounded border border-slate-200">• Other: ${otherCc}</div>`;
+            }
+
+            const sigSrc = lastSignatureData || (canvas ? canvas.toDataURL() : null);
+            if (sigSrc && sigSrc.length > 500) {
+                const sigImg = document.getElementById('p_sig_img');
+                if (sigImg) { sigImg.src = sigSrc; sigImg.classList.remove('hidden'); }
+            }
+        }
+
+        function syncRxPrintData() {
+            const getVal = (id) => document.getElementById(id) ? document.getElementById(id).value.trim() : '';
+
+            document.getElementById('rx_p_name').innerText = getVal('patient_name') || '---';
+            document.getElementById('rx_p_age').innerText = getVal('patient_age') || '---';
+            document.getElementById('rx_p_date').innerText = getVal('clinic_date') || new Date().toISOString().split('T')[0];
+            document.getElementById('rx_p_content').innerText = getVal('rx_medications') || 'لا توجد أدوية مسجلة.';
+            document.getElementById('rx_p_doc').innerText = getVal('doctor_name') || 'د. مجيب النجار';
+
+            const sigSrc = lastSignatureData || (canvas ? canvas.toDataURL() : null);
+            if (sigSrc && sigSrc.length > 500) {
+                const rxSigImg = document.getElementById('rx_sig_img');
+                if (rxSigImg) { rxSigImg.src = sigSrc; rxSigImg.classList.remove('hidden'); }
+            }
+        }
+
+        function prepareAndPrint() {
+            document.body.className = 'printing-sheet';
+            try { syncPrintData(); } catch (err) { console.error(err); }
+            setTimeout(() => window.print(), 100);
+        }
+
+        function prepareAndPrintRx() {
+            document.body.className = 'printing-rx';
+            try { syncRxPrintData(); } catch (err) { console.error(err); }
+            setTimeout(() => window.print(), 100);
+        }
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            initSignaturePad();
+            const savedTheme = localStorage.getItem('mouejib_theme_mode') || 'dark';
+            if (savedTheme === 'light') toggleTheme();
+            
+            const today = new Date().toISOString().split('T')[0];
+            const dateInput = document.getElementById('clinic_date');
+            if (dateInput && !dateInput.value) dateInput.value = today;
+
+            await initIndexedDB();
+            const localSaved = localStorage.getItem('active_mouejib_case_data');
+            if (localSaved) restoreFullCaseState(JSON.parse(localSaved));
+            
+            updateHeaderBadge();
+            bindAutoSaveEvents();
+        });
+    </script>
+</body>
+</html>
